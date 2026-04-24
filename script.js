@@ -209,7 +209,7 @@ function iniciarSistema() {
     let cy = canvas.height / 2;
 
     // dibujar órbita
-    midpointCircle(cx, cy, 120, "white");
+    midpointCircle(ctx, cx, cy, 120, "white");
 
     // obtener posiciones
     let posiciones = getOrbitalPositions(cx, cy, 120, 6, 0);
