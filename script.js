@@ -42,20 +42,21 @@ function bresenhamLine(x0, y0, x1, y1, color) {
         // Condición de parada
         if (x0 === x1 && y0 === y1) break;
  
-        let p2 = 2 * p;
+        let e2 = 2 * err;
  
-        if (p2 > -dy) {
-            p -= dy;
+        if (e2 > -dy) {
+            err -= dy;
             x0 += sx;
         }
  
-        if (p2 < dx) {
-            p += dx;
+        if (e2 < dx) {
+            err += dx;
             y0 += sy;
         }
+    }
 }
 
-/**
+/** 
  * Algoritmo de Punto Medio para circunferencias
  * Dibujar una circunferencia utilizando el metodo del punto medio aprovechando la simetria de 8 ectantes, haciendo todo el circulo calculando solo el primer ectante
  *
@@ -65,7 +66,7 @@ function bresenhamLine(x0, y0, x1, y1, color) {
  * @param {number} r - Radio de la circunferencia en píxeles
  * @param {string} [color="#ffffff"] - Color de la circunferencia
  */
- */
+ 
 function midpointCircle(centerX, centerY, r, color) {
     // Implementación obligatoria por el estudiante
     let x = 0;
