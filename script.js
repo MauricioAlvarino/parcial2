@@ -57,7 +57,51 @@ function bresenhamLine(x0, y0, x1, y1, color) {
 
 /**
  * Algoritmo de Punto Medio para circunferencias
+ * Dibujar una circunferencia utilizando el metodo del punto medio aprovechando la simetria de 8 ectantes, haciendo todo el circulo calculando solo el primer ectante
+ *
+ * @param {CanvasRenderingContext2D} ctx - Contexto 2D del canvas
+ * @param {number} centerX - Coordenada X del centro de la circunferencia
+ * @param {number} centerY - Coordenada Y del centro de la circunferencia
+ * @param {number} r - Radio de la circunferencia en píxeles
+ * @param {string} [color="#ffffff"] - Color de la circunferencia
+ */
  */
 function midpointCircle(centerX, centerY, r, color) {
     // Implementación obligatoria por el estudiante
+    let x = 0;
+    let y = r;
+
+    let p = 1 - r;
+
+    
+    // Dibujar los 8 ectantes en el primer paso
+    plotPixel(ctx, centerX + x, centerY + y, color);
+    plotPixel(ctx, centerX - x, centerY + y, color);
+    plotPixel(ctx, centerX + x, centerY - y, color);
+    plotPixel(ctx, centerX - x, centerY - y, color);
+    plotPixel(ctx, centerX + y, centerY + x, color);
+    plotPixel(ctx, centerX - y, centerY + x, color);
+    plotPixel(ctx, centerX + y, centerY - x, color);
+    plotPixel(ctx, centerX - y, centerY - x, color);
+
+    while (x < y) {
+        x++;
+        if (p < 0) {
+            //Y se mantiene igual pero se actualiza el punto de decisión
+            p += 2 * x + 1;
+        } else{
+            //Y se decrementa y se actualiza el punto de decisión a partir de la nueva coordenada
+            y--;
+            p += 2 * (x - y) + 1;
+        }
+        //Con cada nuevo punto calculado se dibujan los 8 ectantes correspondientes
+        plotPixel(ctx, centerX + x, centerY + y, color);
+        plotPixel(ctx, centerX - x, centerY + y, color);
+        plotPixel(ctx, centerX + x, centerY - y, color);
+        plotPixel(ctx, centerX - x, centerY - y, color);
+        plotPixel(ctx, centerX + y, centerY + x, color);
+        plotPixel(ctx, centerX - y, centerY + x, color);
+        plotPixel(ctx, centerX + y, centerY - x, color);
+        plotPixel(ctx, centerX - y, centerY - x, color);
+    }
 }
