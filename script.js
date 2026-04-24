@@ -9,7 +9,7 @@
 const canvas = document.getElementById("orbitalCanvas");
 const ctx = canvas.getContext("2d");
 
-function plotPixel(ctx, x, y, color = "#1a1a1a") {
+function plotPixel(ctx=canvas.getContext("2d"), x=30, y=125, color = "#1a1a1a") {
     ctx.fillStyle = color;
     ctx.fillRect(Math.floor(x), Math.floor(y), 1, 1);
 }
@@ -48,8 +48,14 @@ function getOrbitalPositions(cx, cy, r, n, OffA) {
 
 /**
  * Algoritmo de Bresenham para líneas
+ * @param {CanvasRenderingContext2D} ctx - Contexto 2D del canvas
+ * @param {number} x0 - Coordenada X del punto inicial
+ * @param {number} y0 - Coordenada Y del punto inicial
+ * @param {number} x1 - Coordenada X del punto final
+ * @param {number} y1 - Coordenada Y del punto final
+ * @param {string} [color="#ffffff"] - Color del segmento
  */
-function bresenhamLine(x0, y0, x1, y1, color) {
+function bresenhamLine(ctx, x0, y0, x1, y1, color="#ffffff") {
     x0 = Math.round(x0);
     y0 = Math.round(y0);
     x1 = Math.round(x1);
@@ -92,7 +98,7 @@ function bresenhamLine(x0, y0, x1, y1, color) {
  * @param {string} [color="#ffffff"] - Color de la circunferencia
  */
  
-function midpointCircle(centerX, centerY, r, color) {
+function midpointCircle(ctx, centerX, centerY, r, color="#ffffff") {
     // Implementación obligatoria por el estudiante
 
     let x = 0;
@@ -194,6 +200,26 @@ function drawPolygon(ctx, cx, cy, radioP, k, OffA, color) {
         bresenhamLine(ctx, actual.x, actual.y, siguiente.x, siguiente.y, color);
     }
 }
+
+function iniciarSistema() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // centro del canvas
+    let cx = canvas.width / 2;
+    let cy = canvas.height / 2;
+
+    // dibujar órbita
+    midpointCircle(cx, cy, 120, "white");
+
+    // obtener posiciones
+    let posiciones = getOrbitalPositions(cx, cy, 120, 6, 0);
+
+    // dibujar polígonos
+    posiciones.forEach(p => {
+        drawPolygon(ctx, p.x, p.y, 30, 5, 0, "red");
+    });
+}
+
 window.onload = function () {
     iniciarSistema();
 };
