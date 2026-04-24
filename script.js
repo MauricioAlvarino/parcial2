@@ -25,11 +25,34 @@ function getOrbitalPositions(r, n) {
  * Algoritmo de Bresenham para líneas
  */
 function bresenhamLine(x0, y0, x1, y1, color) {
-    /*let dx = Math.abs(x1 - x0);
+    x0 = Math.round(x0);
+    y0 = Math.round(y0);
+    x1 = Math.round(x1);
+    y1 = Math.round(y1);
+    let dx = Math.abs(x1 - x0);
     let dy = Math.abs(y1 - y0);
     let sx = (x0 < x1) ? 1 : -1;
     let sy = (y0 < y1) ? 1 : -1;
-    let err = dx - dy;*/
+    let err = dx - dy;
+
+     while (true) {
+        // Pintar el píxel actual
+        plotPixel(ctx, x0, y0, color);
+ 
+        // Condición de parada
+        if (x0 === x1 && y0 === y1) break;
+ 
+        let p2 = 2 * p;
+ 
+        if (p2 > -dy) {
+            p -= dy;
+            x0 += sx;
+        }
+ 
+        if (p2 < dx) {
+            p += dx;
+            y0 += sy;
+        }
 }
 
 /**
