@@ -132,6 +132,68 @@ function midpointCircle(centerX, centerY, r, color) {
         plotPixel(ctx, centerX - y, centerY - x, color);
     }
 }
+
+/**
+ * Calcula y retorna los vértices de un polígono regular de k lados,
+ * con centro en (cx, cy), radio interno radioP y rotado según angleOffset.
+ *
+ * Fórmula para el i-ésimo vértice:
+ *   ángulo_i = OffA + i * (2pi / k)
+ *   xi = cx + radioP * cos(angulo_i)
+ *   yi = cy + radioP * sin(angulo_i)
+ *
+ * @param {number} cx - Coordenada X del centro del polígono
+ * @param {number} cy - Coordenada Y del centro del polígono
+ * @param {number} radioP - Radio circunscrito del polígono (distancia centro-vértice)
+ * @param {number} k - Número de lados (y vértices) del polígono regular
+ * @param {number} [OffA] - Rotación inicial del polígono en radianes
+ * @returns {Array<{x: number, y: number}>} Arreglo de vértices en orden
+ */
+function getPolygonVertices(cx, cy, radioP, k, OffA = 0) {
+    const vertices = [];
+ 
+    // Paso angular entre vértices consecutivos: 360° / k
+    const pasoAngular = (2 * Math.PI) / k;
+ 
+    for (let i = 0; i < k; i++) {
+        const angulo = OffA + i * pasoAngular;
+ 
+        const x = cx + radioP * Math.cos(angulo);
+        const y = cy + radioP * Math.sin(angulo);
+ 
+        vertices.push({ x, y });
+    }
+ 
+    // Retornar el arreglo de vértices antes de dibujar para permitir su reutilización en otras funciones
+    return vertices;
+}
+ 
+/**
+ * Dibuja un polígono regular usando los vértices retornados por getPolygonVertices.
+ * Conecta cada par de vértices consecutivos con el Algoritmo de Bresenham.
+ * El último vértice se conecta de vuelta al primero para cerrar la figura.
+ *
+ * @param {CanvasRenderingContext2D} ctx - Contexto 2D del canvas
+ * @param {number} cx - Coordenada X del centro
+ * @param {number} cy - Coordenada Y del centro
+ * @param {number} radioP - Radio circunscrito en píxeles
+ * @param {number} k - Número de lados
+ * @param {number} OffA - Rotación inicial en radianes
+ * @param {string} color - Color del polígono
+ */
+function drawPolygon(ctx, cx, cy, radioP, k, OffA, color) {
+    // Obtener arreglo de vértices {x, y} antes de dibujar
+    const vertices = getPolygonVertices(cx, cy, radioP, k, OffA);
+ 
+    // Conectar cada vértice con el siguiente usando Bresenham
+    for (let i = 0; i < vertices.length; i++) {
+        const actual = vertices[i];
+        // El módulo cierra el polígono, el último vértice conecta al primero
+        const siguiente = vertices[(i + 1) % vertices.length];
+ 
+        bresenhamLine(ctx, actual.x, actual.y, siguiente.x, siguiente.y, color);
+    }
+}
 window.onload = function () {
     iniciarSistema();
 };
