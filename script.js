@@ -6,6 +6,7 @@
  */
 
 // Única función autorizada para dibujar
+
 function plotPixel(ctx, x, y, color = "#1a1a1a") {
     ctx.fillStyle = color;
     ctx.fillRect(Math.floor(x), Math.floor(y), 1, 1);
@@ -17,8 +18,27 @@ function plotPixel(ctx, x, y, color = "#1a1a1a") {
  * @param {number} n - Cantidad de polígonos
  * @returns {Array} [{x, y}, ...]
  */
-function getOrbitalPositions(r, n) {
+//Añadi cx, cy y OffA para tener los centros de la órbita, el ángulo de desplazamiento para la animación y así poder reutilizar esta función para calcular las posiciones en cada frame
+function getOrbitalPositions(cx, cy, r, n, OffA) {
     // Implementar lógica de distribución circular
+    const positions = [];
+
+    // Paso angular entre polígono y polígono en la circunferencia, calculado dividiendo 360 grados (2 * PI radianes) entre la cantidad de polígonos
+    const pasoAngular = (2 * Math.PI) / n;
+
+    // Distribuir los centros de los polígonos en una circunferencia de radio r alrededor del centro del canvas
+    for (let i = 0; i < n; i++) {
+        // Ángulo correspondiente al i-ésimo polígono
+        const angulo = OffA + i * pasoAngular;
+ 
+        // Proyección trigonométrica sobre la circunferencia
+        const x = cx + r * Math.cos(angulo);
+        const y = cy + r * Math.sin(angulo);
+ 
+        // Almacenar el centro calculado como objeto {x, y}
+        positions.push({ x, y });
+    }
+    return positions;
 }
 
 /**
@@ -69,6 +89,7 @@ function bresenhamLine(x0, y0, x1, y1, color) {
  
 function midpointCircle(centerX, centerY, r, color) {
     // Implementación obligatoria por el estudiante
+
     let x = 0;
     let y = r;
 
