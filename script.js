@@ -18,6 +18,9 @@ function plotPixel(ctx, x, y, color = "#1a1a1a") {
  * Retorna los centros donde se ubicarán los polígonos
  * @param {number} r - Radio de la órbita
  * @param {number} n - Cantidad de polígonos
+ * @param {number} cx - Coordenada X del centro de la órbita
+ * @param {number} cy - Coordenada Y del centro de la órbita
+ * @param {number} OffA - Ángulo de desplazamiento para la animación
  * @returns {Array} [{x, y}, ...]
  */
 //Añadi cx, cy y OffA para tener los centros de la órbita, el ángulo de desplazamiento para la animación y así poder reutilizar esta función para calcular las posiciones en cada frame
