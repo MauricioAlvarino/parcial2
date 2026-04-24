@@ -208,16 +208,51 @@ function iniciarSistema() {
     let cx = canvas.width / 2;
     let cy = canvas.height / 2;
 
-    // dibujar órbita
-    midpointCircle(ctx, cx, cy, 120, "white");
+    // Generar un radio orbital aleatorio entre 80 y 150 píxeles
+    let R = randomInt(80, 150);
 
-    // obtener posiciones
-    let posiciones = getOrbitalPositions(cx, cy, 120, 6, 0);
+    // Generar cantidad de polígonos entre 3 y 10
+    let N = randomInt(3, 10);
+
+    // Generar cantidad de lados del polígono entre 3 y 8
+    let k = randomInt(3, 8);
+
+    // Generar un ángulo aleatorio entre 0 y 2π radianes
+    let offset = Math.random() * 2 * Math.PI;
+
+    // MOSTRAR INFORMACIÓN EN PANTALLA
+
+    document.getElementById("info-r").textContent = `Radio Orbital (R): ${R}`;
+    document.getElementById("info-n").textContent = `Polígonos (N): ${N}`;
+    document.getElementById("info-k").textContent = `Lados por polígono (k): ${k}`;
+
+    // DIBUJO DE LA ÓRBITA YA RANDOMIZADO
+
+    midpointCircle(ctx, cx, cy, R, "white");
+
+    // obtener posiciones RANDOMIZADAS para cada polígono   
+    let posiciones = getOrbitalPositions(cx, cy, R, N, offset);
 
     // dibujar polígonos
     posiciones.forEach(p => {
-        drawPolygon(ctx, p.x, p.y, 30, 5, 0, "red");
+        drawPolygon(ctx, p.x, p.y, 25, k, offset, "red");
     });
+}
+/**
+ * Genera un número entero aleatorio entre un mínimo y un máximo (incluidos).
+ *
+ * Fórmula:
+ *   Math.random() → número decimal entre 0 y 1
+ *   (max - min + 1) → tamaño del rango
+ *   + min → desplaza el rango al valor mínimo deseado
+ *
+ *
+ * @param {number} min - Valor mínimo
+ * @param {number} max - Valor máximo
+ * @returns {number} Número entero aleatorio en el rango [min, max]
+ */
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 window.onload = function () {
