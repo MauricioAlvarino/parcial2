@@ -6,6 +6,8 @@
  */
 
 // Única función autorizada para dibujar
+const canvas = document.getElementById("orbitalCanvas");
+const ctx = canvas.getContext("2d");
 
 function plotPixel(ctx, x, y, color = "#1a1a1a") {
     ctx.fillStyle = color;
@@ -127,3 +129,6 @@ function midpointCircle(centerX, centerY, r, color) {
         plotPixel(ctx, centerX - y, centerY - x, color);
     }
 }
+window.onload = function () {
+    iniciarSistema();
+};
