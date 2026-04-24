@@ -3,9 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sistema de Dispersión Geométrica Orbital (Rasterización Manual)
+    <style>
+        body {
+            background-color: #1e1e2e;
+            font-family: Arial, sans-serif;
+            color: #cdd6f4;
+            margin: 0;
+            padding: 20px;
+        }
+        canvas {
+            border: 1px solid #585b70;
+            background-color: #181825;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            
+        }
+        input {
+            width: 60px;
+            margin: 5px;
+        }
+    </style>
+</title>
 </head>
 <body>
-    
+     <div style="text-align:center;"class="container">
+        
+            <h1>Sistema de Dispersión Geométrica Orbital</h1>
+            <p style="color:#555; font-size:14px;">Rasterización Manual — Algoritmos de Bresenham y Punto Medio</p>
+ 
+        <div class="canvas-wrapper">
+            <canvas id="orbitalCanvas"></canvas>
+        </div>
+ 
+        <div style="text-align:center;" class="info-panel">
+            <div class="param" id="info-r">Radio Orbital (R): —</div>
+            <div class="param" id="info-n">Polígonos (N): —</div>
+            <div class="param" id="info-k">Lados por polígono (k): —</div>
+            <button id="btnRegenerar" onclick="iniciarSistema()">↺ Regenerar Sistema</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

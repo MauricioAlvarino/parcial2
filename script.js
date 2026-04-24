@@ -25,7 +25,11 @@ function getOrbitalPositions(r, n) {
  * Algoritmo de Bresenham para líneas
  */
 function bresenhamLine(x0, y0, x1, y1, color) {
-    // Implementación obligatoria por el estudiante
+    /*let dx = Math.abs(x1 - x0);
+    let dy = Math.abs(y1 - y0);
+    let sx = (x0 < x1) ? 1 : -1;
+    let sy = (y0 < y1) ? 1 : -1;
+    let err = dx - dy;*/
 }
 
 /**
