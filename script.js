@@ -9,7 +9,7 @@
 const canvas = document.getElementById("orbitalCanvas");
 const ctx = canvas.getContext("2d");
 
-function plotPixel(ctx=canvas.getContext("2d"), x=30, y=125, color = "#1a1a1a") {
+function plotPixel(ctx, x, y, color = "#1a1a1a") {
     ctx.fillStyle = color;
     ctx.fillRect(Math.floor(x), Math.floor(y), 1, 1);
 }
